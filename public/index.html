@@ -1,74 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     <meta charset="utf-8">
-    <title>Example app</title>
-    <meta name="description" content="" />
-    <link href="assets/css/styles.css" rel="stylesheet">
-    <link href="assets/css/gradients.css" rel="stylesheet">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Spark Demo">
+    <meta name="author" content="Harish Chawla">
+    <title>Cisco Spark-SDK Healthcare Demo</title>
+    <!-- insert Cisco Spark Widget -->
+    <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
+    <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">
+    <!-- jQuery & jqueryui core -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font-Awesome CSS -->
+    <script src="https://use.fontawesome.com/36845998fa.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <link href="css/round-about.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- SparkPopups JS -->
+    <script type="text/javascript" src="js/SparkPopups.js"></script>
 
-<body class="">
-    <div class="wrapper">
-        <div class="graphics">
-            <div class="tower">
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     viewBox="-11 170 1000 429" enable-background="new -11 170 1000 429" xml:space="preserve">
-                    <path class="path" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="M989,595H712v-35c0,0,4.5-1.8,8-3
-                                                                                                  c5.2-1.8,12.5,5.3,22-4c3.4-3.4-0.9-7.8-0.4-10.1c0.7-3.1,4.4-6.8,1.6-11.4c-2.6-4.2-6.9-3.6-8.2-5.5c-1.7-2.3-2.2-6.3-7-9
-                                                                                                  c-5.6-3.1-9.9,0.2-13-1c-2.5-0.9-2.3-5-9-5c-4.8,0-7.2,4.8-10,5c-2.3,0.2-4.9-4.5-10-2c-5.5,2.8-4,7.3-6,9c-1.4,1.2-3.1,3.2-6,4.2
-                                                                                                  c-2.6,0.9-4.9,3-4,8.8c0.6,3.7,6.8,4.1,7.5,6c1,2.9-6.4,6.2-2.5,12c3,4.5,9,1.6,12,1c1.9-0.4,7.1-0.7,8,0c3.4,2.5,9,5,9,5v35
-                                                                                                  l-506-1.5L182.3,444l0.3-0.8v-69.6l-0.2-0.2l12.3-72.3c10.9-2.6,16.5-6.5,16.5-6.5l-5.2-2.9l1.1-5.8l15-3.3l-10.1-3.9l1.2-4.6
-                                                                                                  c-15.8-8.3-32.2-11-32.2-11v-3.6l4.1-6.5h-4.9v-4.4h-8.3V244h-1.2l-1.7-31.2l-1-1.3l-1,1.3l-1.7,31.2h-1.2v4.8h-8.3v4.4h-4.9
-                                                                                                  l4.1,6.5v3.6c0,0-16.5,2.7-32.2,11l1.2,4.6l-10.1,3.9l15,3.3l1.1,5.8l-5.1,2.9c0,0,5.5,3.9,16.4,6.5l12.3,72.4l-0.1,0.1v69.6
-                                                                                                  l0.3,0.8l-14.6,149.4h-1.2H-11"/>
-                    <path class="path" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="M8,393.7c0-13.5,12.1-10.8,15.6-14.7
-                                                                                                  c2.8-3.2-1-8.8,9-13.9c7.9-4.1,9.7,1,13.1,0.8c4.5-0.3,3.3-6.7,14.7-6.6c12.7,0.2,11.2,8.4,14.7,10.6c3,1.9,7.9-2.1,13.9,4.1
-                                                                                                  c3.8,4,1.3,7.4,2.5,9.8c2.2,4.4,14.7,0.9,14.7,13.9c0,12.2-13.5,8.3-17.2,10.6c-3.6,2.3-4.4,9.3-13.1,11.5c-8,2-9.5-4-13.9-4.1
-                                                                                                  c-5-0.1-5.5,8.6-18.8,6.6c-12.3-1.9-12.3-9.1-16.4-12.3C21.9,406.3,8,408.6,8,393.7z"/>
-                    <path class="path" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="M325.1,313.9c-3.9,3-3.9,10-15.7,11.8
-                                                                                                  c-12.8,2-13.3-6.4-18-6.3c-4.3,0.1-5.7,5.8-13.3,3.9c-8.4-2.1-9.1-8.8-12.5-11c-3.6-2.3-16.5,1.5-16.5-10.2c0-12.4,12-9.1,14.1-13.3
-                                                                                                  c1.1-2.3-1.3-5.6,2.4-9.4c5.8-6,10.4-2.1,13.3-3.9c3.4-2.1,2-10,14.1-10.2c11-0.2,9.9,6,14.1,6.3c3.3,0.2,5-4.7,12.5-0.8
-                                                                                                  c9.6,4.9,6,10.3,8.6,13.3c3.3,3.7,14.9,1.2,14.9,14.1C343.1,312.5,329.8,310.3,325.1,313.9z"/>
-                    <path class="path" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="M18.4,229.5c0-13.5,12.1-10.8,15.6-14.7
-                                                                                                  c2.8-3.2-1-8.8,9-13.9c7.9-4.1,9.7,1,13.1,0.8c4.5-0.3,3.3-6.7,14.7-6.6c12.7,0.2,11.2,8.4,14.7,10.6c3,1.9,7.9-2.1,13.9,4.1
-                                                                                                  c3.8,4,1.3,7.4,2.5,9.8c2.2,4.4,14.7,0.9,14.7,13.9c0,12.2-13.5,8.3-17.2,10.6c-3.6,2.3-4.4,9.3-13.1,11.5c-8,2-9.5-4-13.9-4.1
-                                                                                                  c-5-0.1-5.5,8.6-18.8,6.6c-12.3-1.9-12.3-9.1-16.4-12.3C32.2,242.1,18.4,244.4,18.4,229.5z"/>
-                    <path class="path" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" d="M215.8,398.8c0-13.5,12.1-10.8,15.6-14.7
-                                                                                                  c2.8-3.2-1-8.8,9-13.9c7.9-4.1,9.7,1,13.1,0.8c4.5-0.3,3.3-6.7,14.7-6.6c12.7,0.2,11.2,8.4,14.7,10.6c3,1.9,7.9-2.1,13.9,4.1
-                                                                                                  c3.8,4,1.3,7.4,2.5,9.8c2.2,4.4,14.7,0.9,14.7,13.9c0,12.2-13.5,8.3-17.2,10.6c-3.6,2.3-4.4,9.3-13.1,11.5c-8,2-9.5-4-13.9-4.1
-                                                                                                  c-5-0.1-5.5,8.6-18.8,6.6c-12.3-1.9-12.3-9.1-16.4-12.3C229.7,411.3,215.8,413.6,215.8,398.8z"/>
-                </svg>
+  </head>
 
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"><i class="fa fa-heartbeat fa-cog rediconcolor" aria-hidden="true"></i><b> MEDi</b>Syn Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#About">About
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="About" class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4 text-center">
+        <h1 class="display-6"><b>Unbounded Health Care Access</b></h1>
+        <p class="lead">Start the digital transformation of your healthcare organization today. Around the world, our collaboration experts are securely connecting patients, doctors, and processes to increase access, quality of care, and efficiency. We lead the industry with state-of-the-art collaboration solutions that lay the foundation for a healthier tomorrow.</p>
+        <!--a id="SparkURIDialog" class="btn btn-success" data-toggle="modal" data-target="#SIPURIModal" href="#"><i class="fa fa-address-card"></i> Call a Cisco Representative!</a-->
+        <button id="SparkURIDial" class="btn btn-primary">
+          <i class="fa fa-address-card"></i> Call your Cisco representative now!
+        </button>
+      </header>
+
+      <!-- Page Features -->
+      <div id="Services" class="row text-center">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/med-img-1.png" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Pediatric Health Plans</h4>
+              <p class="card-text">Preventive health care consults and health plan developments; our collaborative pediatric specialists provide live expertise in children’s health.</p>
             </div>
+            <div class="card-footer">
+              <button id="SparkGroupMeet" class="btn btn-primary">
+              <i class="fa fa-users"></i> Contact Group
+            </button>
+            </div>
+          </div>
         </div>
 
-        <header>
-            <nav class="website-nav">
-                <ul>
-                  <li><a class="home-link" href="https://aws.amazon.com/">Home</a></li>
-                  <li><a href="https://aws.amazon.com/what-is-cloud-computing/">About</a></li>
-                  <li><a href="https://aws.amazon.com/solutions/">Services</a></li>
-                  <li><a href="https://aws.amazon.com/contact-us/">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <div class="message">
-            <a class="twitter-link" href="http://twitter.com/home/?status=I%20created%20a%20project%20with%20AWS%20CodeStar!%20%23AWS%20%23AWSCodeStar%20https%3A%2F%2Faws.amazon.com%2Fcodestar"><img src="assets/img/tweet.svg" /></a>
-            <div class="text">
-                <h1>Congratulations!</h1>
-                <h2>You just created a Node.js web application</h2>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <img class="card-img-top" src="img/med-img-2.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Urgent Care</h4>
+              <p class="card-text">Chat with our delightful scheduling BOT and choose a convenient location and arrival time that's best for you and wait in the comfort of your own home.</p>
             </div>
+            <div class="card-footer">
+              <button id="SparkBOTMessage" class="btn btn-primary">
+                <i class="fa fa-android"></i> Schedule Now
+              </button>
+            </div>
+          </div>
         </div>
+
+        <div class="col-lg-3 col-md-6 text-center mb-4">
+            <img class="rounded-circle img-fluid d-block mx-auto" src="img/member2-200px.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">KwikRx</h4>
+              <p class="card-text">Medical consultation and prescription writing service is currenlty online. Get a consult from the comfort of your home!</p>
+              <!-- a class="btn btn-success" href="#"><i class="fa fa-phone-square"></i> Call</a-->
+              <button id="SparkVideoCall" class="btn btn-primary">
+                <i class="fa fa-phone-square"></i> Call Now
+              </button>
+            </div>
+          </div>
+
+        <div class="col-lg-3 col-md-6 text-center mb-4">
+            <img class="rounded-circle img-fluid d-block mx-auto" src="img/member3-200px.jpg" alt="">
+            <div class="card-body">
+              <h4 class="card-title">Resident Relations</h4>
+              <p class="card-text">Discuss concerns with or provide direct feedback to our Resident Program Officer</p>
+              <!--a class="btn btn-primary" href="#"><i class="fa fa-comments"></i> Message</a-->
+              <button id="SparkMessage" class="btn btn-primary">
+                <i class="fa fa-comments"></i> Chat
+              </button>
+            </div>
+          </div>
+
+      </div>
+      <!-- /.row -->
     </div>
+    <!-- /.container -->
 
-    <footer>
-        <p class="footer-contents">Designed and developed with <a href="https://aws.amazon.com/careers/devtools-jobs/">♥</a> in Seattle.</p>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <h6 class="m-0 text-center text-white">Copyright &copy; Cisco Sytems 2017 <br> S4D TME Group</h6>
+      </div>
+      <!-- /.container -->
     </footer>
 
-    <script src="assets/js/set-background.js"></script>
-</body>
+    <div id="popup" class="card card-title text-center btn btn-primary">
+      <script>
+        var widgetEl = document.getElementById('popup');
+      </script>
+      <p>This is the default dialog which should not be visible!</p>
+    </div>
 
+    <!-- display:none in style.css for this section, used for debugging widget-->
+    <div id="widget-events">
+      <script>
+        var widgetEventsEl = document.getElementById('widget-events');
+      </script>
+    </div>
+
+<!--disable site with overlay
+<script> var overlay = jQuery('<div id="overlay"> </div>');
+  overlay.appendTo(document.body)
+</script>
+-->
+
+<script>
+
+$( "#SparkGroupMeet" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkBOTMessage" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkVideoCall" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkMessage" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkURIDial" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$(document).ready(function() {
+});
+
+
+
+</script>
+</body>
 </html>
