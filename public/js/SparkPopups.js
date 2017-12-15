@@ -1,7 +1,7 @@
 
 
 function showPopup(your_variable){
-
+    console.log("got token" + process.env.ACCESS_TOKEN);
     $("#popup").dialog({
         title: your_variable,
         modal: true,
@@ -30,12 +30,21 @@ function showPopup(your_variable){
   });
 }
 
+function SparkEventHandler(name, detail) {
+							console.log ("Events comming in - " + JSON.stringify(name));
+						  if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
+						    // Perform an action if a new message has been created
+								console.log("I did get this : " + JSON.stringify(name) + JSON.stringify(detail));
+								//ciscospark.widget(widgetEl).remove();
+								$('#popup').popup('hide');
+						  };
+						};
+
 
 function createWidget() {
   var widget = ciscospark.widget(widgetEl);
   widget.spaceWidget({
-    accessToken: 'SPARK_TOKEN',
-    //accessToken:'something',
+    accessToken: '<%= process.env.ACCESS_TOKEN %>',
     //spaceId: '<%= process.env.SPACE_ID %>',
     toPersonEmail: 'roomkit@sparkdemos.com',
     initialActivity: 'meet',
