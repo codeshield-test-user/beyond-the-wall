@@ -32,7 +32,7 @@ function showPopup(your_variable){
 
 
 function createWidget() {
-console.log('heres the token:' + process.env.ACCESS_TOKEN);
+console.log("heres the token: " + process.env.ACCESS_TOKEN);
   var widget = ciscospark.widget(widgetEl);
   widget.spaceWidget({
     accessToken: '<%= process.env.ACCESS_TOKEN %>',
