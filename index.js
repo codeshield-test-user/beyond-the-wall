@@ -1,5 +1,4 @@
 'use strict';
-require('dotenv').config();
 var fs = require('fs');
 
  exports.get = function(event, context) {
