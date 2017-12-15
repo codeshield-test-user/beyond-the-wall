@@ -32,10 +32,9 @@ function showPopup(your_variable){
 
 
 function createWidget() {
-console.log("heres the token: " + process.env.ACCESS_TOKEN);
   var widget = ciscospark.widget(widgetEl);
   widget.spaceWidget({
-    accessToken: '<%= process.env.ACCESS_TOKEN %>',
+    accessToken: 'SPARK_TOKEN',
     //accessToken:'something',
     //spaceId: '<%= process.env.SPACE_ID %>',
     toPersonEmail: 'roomkit@sparkdemos.com',
