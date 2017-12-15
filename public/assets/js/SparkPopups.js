@@ -30,18 +30,9 @@ function showPopup(your_variable){
   });
 }
 
-function SparkEventHandler(name, detail) {
-							console.log ("Events comming in - " + JSON.stringify(name));
-						  if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
-						    // Perform an action if a new message has been created
-								console.log("I did get this : " + JSON.stringify(name) + JSON.stringify(detail));
-								//ciscospark.widget(widgetEl).remove();
-								$('#popup').popup('hide');
-						  };
-						};
-
 
 function createWidget() {
+console.log('heres the token:' + process.env.ACCESS_TOKEN);
   var widget = ciscospark.widget(widgetEl);
   widget.spaceWidget({
     accessToken: '<%= process.env.ACCESS_TOKEN %>',
