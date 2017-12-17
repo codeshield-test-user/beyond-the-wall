@@ -44,3 +44,9 @@
 #widget-events {
   display: none;
 }
+
+.btn-token {
+    color: #000000;
+    background-color: #ffc526;
+    border-color: #ffc526;
+}
