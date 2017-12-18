@@ -1,4 +1,14 @@
 $( function() {
+    $( "#token-form" ).dialog({
+        autoOpen: false,
+        modal: true,
+        width: "500",
+        height: "200"
+    });
+ } );
+
+
+$( function() {
     var dialog, form,
  
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
@@ -89,14 +99,48 @@ $( function() {
     });
   } );
 
-
+function getToken(event){
+    console.log(event);
+};
 
 function askforToken(){
-    console.log("ask for token function");
+        //console.log(#token);
+        //console.log (document.getElementById("token-form"));
+        $("#token-form").dialog({
+        //autoOpen: false,
+        //title: your_variable,
+        modal: true,
+        width: "500" ,
+        height: "500",
+        dialogClass: "no-close",
+        open: function(){
+            //$(this).find("p").html("Hello " + your_variable);
+            //createWidget();
+            
+        },
+        close: function(){
+          //ciscospark.widget(widgetEl).remove();
+          //removeWidget();
+        },
+        buttons: [
+        {
+          text: "Save",
+          //icon: "fa fa-users",
+          click: function() {
+            theToken = document.getElementById("tokenID").value;
+            console.log(theToken);  
+            $(this).dialog( "close" );
+          },
+        //Uncommenting the following line would hide the text,resulting in the label being used as a tooltip
+        //showText: true
+        }
+    ]
+  });
 }
 
 function showPopup(your_variable){
     //console.log("got token" + process.env.ACCESS_TOKEN);
+    console.log(theToken);
     $("#popup").dialog({
         title: your_variable,
         modal: true,
@@ -129,7 +173,8 @@ function showPopup(your_variable){
 function createWidget() {
   var widget = ciscospark.widget(widgetEl);
   widget.spaceWidget({
-    accessToken: '<%= process.env.ACCESS_TOKEN %>',
+    //accessToken: '<%= process.env.ACCESS_TOKEN %>',
+    accessToken: theToken,
     //spaceId: '<%= process.env.SPACE_ID %>',
     toPersonEmail: 'roomkit@sparkdemos.com',
     initialActivity: 'meet',

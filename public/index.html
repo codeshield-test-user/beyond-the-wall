@@ -140,7 +140,6 @@
 
   </div>
       <!-- /.row -->
-    </div>
     <!-- /.container -->
 
     <!-- Footer -->
@@ -152,16 +151,12 @@
     </footer>
     
     <!-- Enter Access Token Dialog -->
-    <div id="token-form" title="Enter you Spark token">
+    <div id="token-form" title="Enter you Spark token" autoOpen= "false">
       <p class="validateTips">This demo requires your Spark Developer access token!</p>
 
-      <form>
-        
-          <label for="accessToken">Access Token</label>
-          <input type="text" name="accessToken" id="accessToken" value="yourtoken" class="text ui-widget-content ui-corner-all">
-          <!-- Allow form submission with keyboard without duplicating the dialog button -->
-          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        
+      <form id="enter_token">
+        Access Token: <input type="text" name="sparkToken" id="tokenID" value="Enter your S4D Token"><br>
+          <!--input type="button" onclick="askforToken()" value="Submit"-->
       </form>
         
     </div>
@@ -219,14 +214,18 @@ $( "#SparkURIDial" ).on( "click", function(event){
     //  $( "#dialog" ).dialog( "open" );
     });
     
-$( "#add-token" ).button().on( "click", function() {
-  //dialog.dialog( "open" );
+$( "#add-token" ).on( "click", function(event) {
+    //getToken($(event.target));
+    //var submitted_value =  
     askforToken();
+  $( "#token-form" ).dialog( "open" );
 });
-
-$(document).ready(function() {
     
+$(document).ready(function() {
+    var theToken = '';
     console.log("Everything is loaded");
+    $("#token-form").dialog("open");
+    
 
 });
     
