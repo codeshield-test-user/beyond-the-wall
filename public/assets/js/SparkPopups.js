@@ -1,16 +1,32 @@
 
-$( function() {
-    $( "#token-form" ).dialog({
-        autoOpen: false,
-        modal: true,
-        width: "500",
-        height: "200"
-    });
- } );
+
+
+//$('#token-form').on('keyup keypress keydown', function(e) {
+//  var keyCode = e.keyCode || e.which || 0;
+//  if (keyCode === 13) { 
+//    e.preventDefault();
+//    return false;
+//  };
+//    if (keyCode === 27) { 
+//    e.preventDefault();
+//    return false;
+//  };  
+// });
+
+//$( function() {
+//    $( "#token-form" ).dialog({
+//        autoOpen: false,
+//        modal: true,
+//        width: "500",
+//        height: "200"
+//    });
+// } );
 
 
 function getToken(event){
-    console.log(event);
+    console.log("inside getToken function");
+    theToken = document.getElementById("tokenID2").value;
+    console.log(theToken);
 };
 
 function askforToken(){
@@ -21,8 +37,9 @@ function askforToken(){
         autoOpen: true,
         //title: your_variable,
         modal: true,
-        width: "500" ,
-        height: "500",
+        keyboard: false,
+        //width: "75%" ,
+        //height: "500",
         dialogClass: "no-close",
         open: function(){
             //$(this).find("p").html("Hello " + your_variable);

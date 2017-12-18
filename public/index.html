@@ -151,14 +151,11 @@
     </footer>
     
     <!-- Enter Access Token Dialog -->
-    <div id="token-form" title="Enter you Spark token" autoOpen= "false">
-      <p class="validateTips">This demo requires your Spark Developer access token!</p>
-
+    <div id="token-form" title="Use access token" autoOpen= "false" class="modal-dialog modal-sm text-center">
       <form id="enter_token">
-        Access Token: <input type="text" name="sparkToken" id="tokenID" value="Enter your S4D Token"><br>
+        Enter your Spark for Developers access token: <input type="text" name="sparkToken" id="tokenID"><br>
           <!--input type="button" onclick="askforToken()" value="Submit"-->
-      </form>
-        
+      </form>        
     </div>
 
     <!-- Spark Popup Dialog -->
@@ -183,6 +180,10 @@
 -->
 
 <script>
+var tokenmodaloptions = {
+    "backdrop" : "static"
+};
+var theToken = '';
 
 $( "#SparkGroupMeet" ).on( "click", function(event){
   var cell_value = $(event.target).text();
@@ -217,22 +218,49 @@ $( "#SparkURIDial" ).on( "click", function(event){
 $( "#add-token" ).on( "click", function(event) {
     //getToken($(event.target));
     //var submitted_value =  
-    askforToken();
-  $( "#token-form" ).dialog( "open" );
+    //askforToken();
+    $('#tokenModal').modal(tokenmodaloptions);
 });
     
 $(document).ready(function() {
-    var theToken = '';
+    
     console.log("Everything is loaded");
     //$("#token-form").dialog("open");
-    askforToken();
-    
-
+    //askforToken();
+    $('#tokenModal').modal(tokenmodaloptions);
 });
-    
-
-
-
 </script>
+
+      
+<!-- playing with bootstrap modals for Access Token -->
+<div class="modal fade" id="tokenModal" tabindex="-1" role="dialog" aria-labelledby="tokenModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="tokenModalLabel">
+                <i class="fa fa-id-badge"></i> Use Token</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            </div>
+            <div class="modal-body text-center">
+                <!--h3>Modal Body</h3-->
+                <form id="enter_token_form">
+                    <p>
+                    Enter your <a target="_blank" href="https://developer.ciscospark.com">Spark for Developers</a>
+                    or Guest access token: 
+                    </p>
+                    <p><input type="text" name="sparkToken" id="tokenID2">
+                      <!--input type="button" onclick="askforToken()" value="Submit"-->
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="getToken()">Save</button>
+                    </p>
+                </form>
+            </div>
+            <!--div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+        </div-->
+    </div>
+  </div>
+</div>
+      
 </body>
 </html>
