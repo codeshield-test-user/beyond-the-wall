@@ -1,3 +1,12 @@
+.modal-content.ui-resizable {
+  overflow: hidden;
+}
+
+.modal-body.ui-resizable {
+    overflow: hidden;
+}
+
+
 #overlay {
     position: fixed;
     top: 0;
@@ -45,12 +54,12 @@
 
 }
 
-.ciscospark-title-bar {
-
+.ciscospark-title-bar-wrapper {
+    display:inherit;    
 }
 
 #widget-events {
-  display: none;
+
 }
 
 .btn-token {

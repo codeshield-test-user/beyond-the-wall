@@ -1,6 +1,8 @@
 
 
 
+
+
 //$('#token-form').on('keyup keypress keydown', function(e) {
 //  var keyCode = e.keyCode || e.which || 0;
 //  if (keyCode === 13) { 
@@ -27,6 +29,48 @@ function getToken(event){
     console.log("inside getToken function");
     theToken = document.getElementById("tokenID2").value;
     console.log(theToken);
+};
+
+function getURI(event){
+    console.log("inside getURI function");
+    theURI = document.getElementById("sparkURI").value;
+    console.log(theURI);
+};
+
+function dialURI2(){
+    theURI = document.getElementById("sparkURI").value;
+//    console.log("got token - " + theToken);
+//    console.log("got uri - " + theURI);
+    createURIwidget(theURI);
+};
+
+function dialURI(token, uri){
+    console.log("got token - " + token);
+    console.log("got uri - " + uri);    
+};
+
+//not using 
+function dialURI(event){
+    console.log("inside getURI function");
+    SparkURI = document.getElementById("sparkURI").value;
+    console.log(SparkURI);
+    
+    $('#sparkwidgetmodal').modal().open;
+    //var widgetEl = document.getElementById('embedSpark');
+      // Init a new widget
+      ciscospark.widget(widgetEl).spaceWidget({
+        accessToken: theToken,
+        toPersonEmail: SparkURI,
+        initialActivity: 'meet',
+        startCall: true
+      });
+    $('#sparkwidgetmodal').on('hidden.bs.modal', function (e) {
+        console.log("going to kill session");
+        //removeWidget('widgetEl');
+        ciscospark.widget(widgetEl).remove();
+        
+    })
+    
 };
 
 function askforToken(){
@@ -68,7 +112,10 @@ function askforToken(){
 
 function showPopup(your_variable){
     //console.log("got token" + process.env.ACCESS_TOKEN);
-    console.log(theToken);
+    SparkURI = document.getElementById("sparkURI").value;
+    console.log("got URI: " + SparkURI);
+    console.log("got your_variable: " + your_variable);
+    console.log("got token: " + theToken);
     $("#popup").dialog({
         title: your_variable,
         modal: true,
@@ -81,7 +128,7 @@ function showPopup(your_variable){
         },
         close: function(){
           //ciscospark.widget(widgetEl).remove();
-          removeWidget();
+          //removeWidget();
         },
         buttons: [
         {
@@ -97,10 +144,43 @@ function showPopup(your_variable){
   });
 }
 
+function sparkevents(name, data){
+    //remove title bar to hide avatar and URI display on connect
+    if (name === 'calls:connected'){
+        var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
+        elements[0].style.display = "none";
+    };
+
+    // kill the widget and modal on call end / decline
+    if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
+                ciscospark.widget(widgetEl).remove(function(removed){
+                  if (removed) {
+                    console.log('Call ended widget removed, hiding modal');
+                    $('#sparkwidgetmodal').modal('hide');
+                  }
+                });
+    };     
+};
+
+
+function createURIwidget(theURI){
+    console.log("creating URI widget");
+    $('#sparkwidgetmodal').modal('show');
+    widgetEl = document.getElementById('embedhere');
+    // Init a new widget 
+    ciscospark.widget(widgetEl).spaceWidget(
+        { accessToken: theToken, 
+         toPersonEmail: theURI,
+         initialActivity: 'meet',
+         startCall: true,
+         onEvent: sparkevents
+        }
+    );
+};
 
 function createWidget() {
-  var widget = ciscospark.widget(widgetEl);
-  widget.spaceWidget({
+  var widgetEl = ciscospark.widget(widgetEl);
+  widgetObject.spaceWidget({
     //accessToken: '<%= process.env.ACCESS_TOKEN %>',
     accessToken: theToken,
     //spaceId: '<%= process.env.SPACE_ID %>',
@@ -115,6 +195,11 @@ function createWidget() {
         //console.log("I did get this : " + JSON.stringify(name) + JSON.stringify(detail));
         //ciscospark.widget(widgetEl).remove();
         //removeWidget();
+        ciscospark.widget(widgetEl).remove(function(removed) {
+          if (removed) {
+            console.log('widget is removed!');
+          }
+        });  
         $('#popup').dialog("close");
 
       };
@@ -123,7 +208,15 @@ function createWidget() {
 }
 
 function removeWidget() {
-  var widget = ciscospark.widget(widgetEl);
+  //var widget = ciscospark.widget(widgetEl);
+  if (widget.remove) {
+    widget.remove();
+  }
+}
+
+function removeWidget(modalid) {
+    console.log("removing widget named " + modalid);
+  //var widget = ciscospark.widget(modalid);
   if (widget.remove) {
     widget.remove();
   }

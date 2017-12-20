@@ -149,19 +149,12 @@
       </div>
       <!-- /.container -->
     </footer>
-    
-    <!-- Enter Access Token Dialog -->
-    <div id="token-form" title="Use access token" autoOpen= "false" class="modal-dialog modal-sm text-center">
-      <form id="enter_token">
-        Enter your Spark for Developers access token: <input type="text" name="sparkToken" id="tokenID"><br>
-          <!--input type="button" onclick="askforToken()" value="Submit"-->
-      </form>        
-    </div>
 
     <!-- Spark Popup Dialog -->
     <div id="popup" class="card card-title text-center btn btn-primary">
       <script>
-        var widgetEl = document.getElementById('popup');
+        console.log("inside the DIV layer");
+        //var widgetEl = document.getElementById('popup');
       </script>
       <p>This is the default Spark Widget/Space dialog which should not be visible!</p>
     </div>
@@ -178,61 +171,8 @@
   overlay.appendTo(document.body)
 </script>
 -->
-
-<script>
-var tokenmodaloptions = {
-    "backdrop" : "static"
-};
-var theToken = '';
-
-$( "#SparkGroupMeet" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkBOTMessage" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkVideoCall" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkMessage" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkURIDial" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
-    });
-    
-$( "#add-token" ).on( "click", function(event) {
-    //getToken($(event.target));
-    //var submitted_value =  
-    //askforToken();
-    $('#tokenModal').modal(tokenmodaloptions);
-});
-    
-$(document).ready(function() {
-    
-    console.log("Everything is loaded");
-    //$("#token-form").dialog("open");
-    //askforToken();
-    $('#tokenModal').modal(tokenmodaloptions);
-});
-</script>
-
       
-<!-- playing with bootstrap modals for Access Token -->
+<!-- START: Bootstrap modal for Token Dialog -->
 <div class="modal fade" id="tokenModal" tabindex="-1" role="dialog" aria-labelledby="tokenModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -261,6 +201,136 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
+<!-- END: Bootstrap modal for Token Dialog -->
+
+<!-- START: Modal for SparkWidget - default -->     
+<div class="modal fade" id="sparkwidgetmodal" tabindex="-1" role="dialog" aria-labelledby="sparkwidgetmodal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!--div class="modal-header">
+            <h5 class="modal-title">Spark Widget Modal</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div-->
+          <div class="modal-body">
+            <div id="embedhere" style="padding:0px 0px; height:500px; width:auto;">Spark should embed here</div>
+          </div>
+          <!--div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div-->
+        </div>
+    </div>
+</div>
+<!-- END: Modal for SparkWidget - default -->    
       
+      
+<!-- START: Bootstrap modal for URI Call Dialog -->
+<div class="modal fade" id="URIModal" tabindex="-1" role="dialog" aria-labelledby="URIModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="URIModalLabel">
+                <i class="fa fa-address-card"></i> Spark SDK URI Dialing </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            </div>
+            <div class="modal-body text-center">
+                <!--h3>Modal Body</h3-->
+                <form id="enter_uri_form">
+                    <p>
+                    Who would you like to call?
+                    </p>
+                    <p><input type="text" name="sparkURI" id="sparkURI">
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="dialURI2()">Call Now</button>
+                    
+                    </p>
+                </form>
+            </div>
+            <!--div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+        </div-->
+    </div>
+  </div>
+</div>
+<!-- END: Bootstrap modal for URI Call Dialog -->
+      
+<script>
+var tokenmodaloptions = {
+    "backdrop" : "static",
+    "keyboard" : false,
+    "show" : false
+};
+var theToken, theURI;
+var widgetEl;
+var widgetObject;
+
+$( "#SparkGroupMeet" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkBOTMessage" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkVideoCall" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkMessage" ).on( "click", function(event){
+  var cell_value = $(event.target).text();
+  showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+    });
+
+$( "#SparkURIDial" ).on( "click", function(){
+  //var cell_value = $(event.target).text();
+  //showPopup(cell_value);
+    //  $( "#dialog" ).dialog( "open" );
+     $('#URIModal').modal("toggle");
+    });
+    
+$( "#add-token" ).on( "click", function(event) {
+    //getToken($(event.target));
+    //var submitted_value =  
+    //askforToken();
+    $('#tokenModal').modal(tokenmodaloptions);
+});
+      
+$(document).ready(function() {
+    console.log("Everything is loaded");
+    $('#tokenModal').modal(tokenmodaloptions);
+    $('#sparkwidgetmodal').modal(tokenmodaloptions);
+    $('#URIModal').modal(tokenmodaloptions);
+    $('#tokenModal').modal('show');
+    $('.modal-dialog').draggable();
+    
+    $('#embedhere').on('show.bs.modal', function () {
+    console.log("in the modal function");
+    $('#embedhere').resizable({
+    });
+        
+    $(this).find('.modal-body').css({
+            //'max-height':'100%',
+            'overflow': 'hidden',
+            'resizable': 'true'
+        });
+    });
+    
+    
+});
+</script> 
+<!--      
+<button type="button" data-toggle="modal" data-target="#sparkwidgetmodal">Toggle Spark modal</button>
+-->
 </body>
 </html>
