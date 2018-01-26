@@ -238,14 +238,11 @@
             <div class="modal-body text-center">
                 <!--h3>Modal Body</h3-->
                 <form id="enter_uri_form">
-                    <p>
-                    Who would you like to call?
-                    </p>
+                    <p>Who would you like to call?</p>
                     <p><input type="text" name="sparkURI" id="sparkURI">
                     <br>
                     <br>
                     <button type="button" class="btn btn-success" data-dismiss="modal" onclick="dialURI2()">Call Now</button>
-                    
                     </p>
                 </form>
             </div>
@@ -264,31 +261,42 @@ var tokenmodaloptions = {
     "keyboard" : false,
     "show" : false
 };
+
+//Declare Global Variables
 var theToken, theURI;
 var widgetEl;
 var widgetObject;
+var SparkBOTEmail = "ERScheduler@sparkbot.io";
+var SparkGroupID = "7487563745ewrwrwr3r24r2387r827hxyr872ff";
+var meet1on1URI = "hachawla@ucdemolab.com";
+//var message1on1Email = "";
 
 $( "#SparkGroupMeet" ).on( "click", function(event){
   var cell_value = $(event.target).text();
   showPopup(cell_value);
+  pingSparkGroup();
     //  $( "#dialog" ).dialog( "open" );
     });
 
 $( "#SparkBOTMessage" ).on( "click", function(event){
+  //console.log(event);
   var cell_value = $(event.target).text();
   showPopup(cell_value);
+  messageSparkBOT();
     //  $( "#dialog" ).dialog( "open" );
     });
 
 $( "#SparkVideoCall" ).on( "click", function(event){
   var cell_value = $(event.target).text();
   showPopup(cell_value);
+  meet1on1();
     //  $( "#dialog" ).dialog( "open" );
     });
 
 $( "#SparkMessage" ).on( "click", function(event){
   var cell_value = $(event.target).text();
   showPopup(cell_value);
+  createnewspace();
     //  $( "#dialog" ).dialog( "open" );
     });
 

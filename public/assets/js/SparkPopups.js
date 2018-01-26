@@ -49,6 +49,66 @@ function dialURI(token, uri){
     console.log("got uri - " + uri);    
 };
 
+function messageSparkBOT(){
+  console.log("got token - " + theToken);
+  //console.log("got uri - " + uri); 
+  console.log("got BOT email - " + SparkBOTEmail);   
+};
+
+function pingSparkGroup(){
+  console.log("got token - " + theToken);
+  //console.log("got uri - " + uri); 
+  console.log("got Group ID - " + SparkGroupID);   
+};
+
+function meet1on1(){
+  console.log("got token - " + theToken);
+  //console.log("got uri - " + uri); 
+  console.log("got 1:1 URI - " + meet1on1URI);   
+};
+
+function createnewspace(){
+  console.log("got token - " + theToken);
+  //console.log("got uri - " + uri); 
+  //console.log("got Group ID - " + SparkGroupID);   
+  console.log("find a way to create new room");
+  $.ajax({
+    url: 'localhost',    //Your api url
+    type: 'POST',   //type is any HTTP method
+    data: {
+        data: "sendData"
+    },      //Data as js object
+    success: function () {
+    }
+  });
+  $.ajax({
+    url: "test.html",
+    type: 'POST',
+    data: {
+      data: "sendData"
+    },
+    context: document.body
+  }).done(function() {
+    alert( "success" );
+  }).fail(function() {
+    alert( "error" );
+  }).always(function() {
+    alert( "complete" );
+  });
+};
+
+/*
+.done(function() {
+    alert( "success" );
+  })
+  .fail(function() {
+    alert( "error" );
+  })
+  .always(function() {
+    alert( "complete" );
+  });
+*/
+
 //not using 
 function dialURI(event){
     console.log("inside getURI function");
@@ -124,7 +184,7 @@ function showPopup(your_variable){
         dialogClass: "no-close",
         open: function(){
             $(this).find("p").html("Hello " + your_variable);
-            createWidget();
+            //createWidget();
         },
         close: function(){
           //ciscospark.widget(widgetEl).remove();
@@ -177,7 +237,7 @@ function createURIwidget(theURI){
         }
     );
 };
-
+/*
 function createWidget() {
   var widgetEl = ciscospark.widget(widgetEl);
   widgetObject.spaceWidget({
@@ -206,6 +266,7 @@ function createWidget() {
     }
   });
 }
+*/
 
 function removeWidget() {
   //var widget = ciscospark.widget(widgetEl);
