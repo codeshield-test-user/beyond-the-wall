@@ -24,6 +24,7 @@
     <link href="assets/css/round-about.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- SparkPopups JS -->
+    <script src="assets/js/bundle.js"></script>
     <script type="text/javascript" src="assets/js/SparkPopups.js"></script>
 
   </head>
@@ -263,9 +264,11 @@ var tokenmodaloptions = {
 };
 
 //Declare Global Variables
+//var mycookie = document.cookie;
 var theToken, theURI;
 var widgetEl;
 var widgetObject;
+var residentchatid;
 var SparkBOTEmail = "ERScheduler@sparkbot.io";
 var SparkGroupID = "7487563745ewrwrwr3r24r2387r827hxyr872ff";
 var meet1on1URI = "hachawla@ucdemolab.com";
@@ -296,7 +299,9 @@ $( "#SparkVideoCall" ).on( "click", function(event){
 $( "#SparkMessage" ).on( "click", function(event){
   var cell_value = $(event.target).text();
   showPopup(cell_value);
-  createnewspace();
+  if(residentchatid == null){
+    createnewspace();
+  }
     //  $( "#dialog" ).dialog( "open" );
     });
 

@@ -23,12 +23,21 @@
 //        height: "200"
 //    });
 // } );
-
+function initializeSpark(req){
+  console.log("inside initialize spark function");
+  console.log("got token - " + req);
+  spark = ciscospark.init({
+    credentials: {
+      access_token: req
+    }
+  });
+};
 
 function getToken(event){
     console.log("inside getToken function");
     theToken = document.getElementById("tokenID2").value;
     console.log(theToken);
+    initializeSpark(theToken);
 };
 
 function getURI(event){
@@ -68,19 +77,19 @@ function meet1on1(){
 };
 
 function createnewspace(){
-  console.log("got token - " + theToken);
+  //console.log("got token - " + theToken);
   //console.log("got uri - " + uri); 
   //console.log("got Group ID - " + SparkGroupID);   
   console.log("find a way to create new room");
-  $.ajax({
-    url: 'localhost',    //Your api url
-    type: 'POST',   //type is any HTTP method
-    data: {
-        data: "sendData"
-    },      //Data as js object
-    success: function () {
-    }
+  spark.rooms.create({title: 'Web-Session-' + Date.now()})
+  .then(function(room){
+    console.log(room.id);
+    //return room.id;
+    setCookie("residentchatid", room.id, 365);
+    residentchatid = room.id;
   });
+  /*
+//Sample ajax POST request
   $.ajax({
     url: "test.html",
     type: 'POST',
@@ -94,20 +103,10 @@ function createnewspace(){
     alert( "error" );
   }).always(function() {
     alert( "complete" );
-  });
-};
+  }); 
+  */
 
-/*
-.done(function() {
-    alert( "success" );
-  })
-  .fail(function() {
-    alert( "error" );
-  })
-  .always(function() {
-    alert( "complete" );
-  });
-*/
+};
 
 //not using 
 function dialURI(event){
@@ -282,3 +281,42 @@ function removeWidget(modalid) {
     widget.remove();
   }
 }
+
+//Cookie handling code - 
+function setCookie(cname, cvalue, exdays) {
+  console.log("in setcookie function");
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  console.log("in getcookie function");
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
+
+/*
+function checkCookie() {
+  var user = getCookie("username");
+  if (user != "") {
+      alert("Welcome again " + user);
+  } else {
+      user = prompt("Please enter your name:", "");
+      if (user != "" && user != null) {
+          setCookie("username", user, 365);
+      }
+  }
+}
+*/
