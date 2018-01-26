@@ -128,7 +128,7 @@ function dialURI(event){
         //removeWidget('widgetEl');
         ciscospark.widget(widgetEl).remove();
         
-    })
+    });
     
 };
 
