@@ -219,10 +219,10 @@
           <div class="modal-body">
             <div id="embedhere" style="padding:0px 0px; height:500px; width:auto;">Spark should embed here</div>
           </div>
-          <!--div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div-->
+          <div class="modal-footer">
+            <!--button type="button" class="btn btn-primary">Save changes</button-->
+            <button id="end_interaction" type="button" class="btn btn-secondary" data-dismiss="modal">End this interaction!</button>
+          </div>
         </div>
     </div>
 </div>
@@ -299,11 +299,14 @@ $( "#SparkVideoCall" ).on( "click", function(event){
     });
 
 $( "#SparkMessage" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
+  //var cell_value = $(event.target).text();
+  //showPopup(cell_value);
   if(residentchatid == null){
     createnewspace();
-  }
+    //spaceIDwidget(residentchatid, "message");
+  } else {
+    spaceIDwidget(residentchatid, "message");
+  };
     //  $( "#dialog" ).dialog( "open" );
     });
 
@@ -319,6 +322,21 @@ $( "#add-token" ).on( "click", function(event) {
     //var submitted_value =  
     //askforToken();
     $('#tokenModal').modal(tokenmodaloptions);
+});
+
+$( "#end_interaction" ).on( "click", function(event) {
+    //getToken($(event.target));
+    //var submitted_value =  
+    //askforToken();
+    //$('#tokenModal').modal(tokenmodaloptions);
+    //removeWidget();
+    //this.modal("toggle");
+    ciscospark.widget(widgetEl).remove(function(removed){
+                  if (removed) {
+                    console.log('Interaction ended widget removed, hiding modal');
+                    $('#sparkwidgetmodal').modal('hide');
+                  }
+                });
 });
       
 $(document).ready(function() {

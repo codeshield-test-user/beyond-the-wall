@@ -171,10 +171,10 @@ function askforToken(){
 
 function showPopup(your_variable){
     //console.log("got token" + process.env.ACCESS_TOKEN);
-    SparkURI = document.getElementById("sparkURI").value;
-    console.log("got URI: " + SparkURI);
-    console.log("got your_variable: " + your_variable);
-    console.log("got token: " + theToken);
+    //SparkURI = document.getElementById("sparkURI").value;
+    //console.log("got URI: " + SparkURI);
+    //console.log("got your_variable: " + your_variable);
+    //console.log("got token: " + theToken);
     $("#popup").dialog({
         title: your_variable,
         modal: true,
@@ -236,6 +236,25 @@ function createURIwidget(theURI){
         }
     );
 };
+
+function spaceIDwidget(){
+  //removeWidget();
+  console.log("creating widget with Space ID - " + arguments[0] + " for acitivity " + arguments[1]);
+  $('#sparkwidgetmodal').modal('show');
+  widgetEl = document.getElementById('embedhere');
+  // Init a new widget 
+  // var spid = arguments[0];
+  ciscospark.widget(widgetEl).spaceWidget(
+      { accessToken: theToken, 
+       spaceId: arguments[0],
+       initialActivity: arguments[1],
+       startCall: false,
+       onEvent: sparkevents,
+       logLevel: 'debug'
+      }
+  );
+};
+
 /*
 function createWidget() {
   var widgetEl = ciscospark.widget(widgetEl);
