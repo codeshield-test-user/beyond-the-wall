@@ -50,13 +50,15 @@ function dialURI2(){
     theURI = document.getElementById("sparkURI").value;
 //    console.log("got token - " + theToken);
 //    console.log("got uri - " + theURI);
-    createURIwidget(theURI);
+    createURIwidget(theURI, "meet");
 };
 
+/*
 function dialURI(token, uri){
     console.log("got token - " + token);
     console.log("got uri - " + uri);    
 };
+*/
 
 function messageSparkBOT(){
   console.log("got token - " + theToken);
@@ -76,39 +78,23 @@ function meet1on1(){
   console.log("got 1:1 URI - " + meet1on1URI);   
 };
 
-function createnewspace(){
-  //console.log("got token - " + theToken);
-  //console.log("got uri - " + uri); 
-  //console.log("got Group ID - " + SparkGroupID);   
-  console.log("find a way to create new room");
+function createnewspace(){  
+  console.log("Using SDK to create space");
   spark.rooms.create({title: 'Web-Session-' + Date.now()})
   .then(function(room){
     console.log(room.id);
     //return room.id;
-    setCookie("residentchatid", room.id, 365);
-    residentchatid = room.id;
+    //setCookie("residentchatid", room.id, 365);
+    residentchatroomid = room.id;
+  })
+  .then(function(){
+    console.log("Space creted successfully");
+    return 'success';
   });
-  /*
-//Sample ajax POST request
-  $.ajax({
-    url: "test.html",
-    type: 'POST',
-    data: {
-      data: "sendData"
-    },
-    context: document.body
-  }).done(function() {
-    alert( "success" );
-  }).fail(function() {
-    alert( "error" );
-  }).always(function() {
-    alert( "complete" );
-  }); 
-  */
-
 };
 
 //not using 
+/*
 function dialURI(event){
     console.log("inside getURI function");
     SparkURI = document.getElementById("sparkURI").value;
@@ -131,7 +117,7 @@ function dialURI(event){
     });
     
 };
-
+*/
 function askforToken(){
         console.log("Asking for token");
         //console.log(#token);
@@ -168,7 +154,7 @@ function askforToken(){
     ]
   });
 }
-
+/*
 function showPopup(your_variable){
     //console.log("got token" + process.env.ACCESS_TOKEN);
     //SparkURI = document.getElementById("sparkURI").value;
@@ -202,11 +188,14 @@ function showPopup(your_variable){
     ]
   });
 }
+*/
 
 function sparkevents(name, data){
     //remove title bar to hide avatar and URI display on connect
+    document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
     if (name === 'calls:connected'){
         var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
+        //console.log(JSON.parse(elements));
         elements[0].style.display = "none";
     };
 
@@ -221,7 +210,30 @@ function sparkevents(name, data){
     };     
 };
 
+function botevents(name, data){
+  //remove title bar to hide avatar and URI display on connect
+  console.log(name + " :: " + JSON.stringify(data));
+  //console.log(document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style);
+  document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
+  if (name === 'rooms:read'){
+      var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
+      console.log(JSON.stringify(elements));
+      elements[0].style.display = "none";
+  };
 
+  // kill the widget and modal on call end / decline
+  if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
+              ciscospark.widget(widgetEl).remove(function(removed){
+                if (removed) {
+                  console.log('Call ended widget removed, hiding modal');
+                  $('#sparkwidgetmodal').modal('hide');
+                }
+              });
+  };     
+};
+
+
+/*
 function createURIwidget(theURI){
     console.log("creating URI widget");
     $('#sparkwidgetmodal').modal('show');
@@ -236,9 +248,25 @@ function createURIwidget(theURI){
         }
     );
 };
+*/
+
+function createURIwidget(){
+  console.log("creating URI widget with - "+ arguments[0] + " for acitivity " + arguments[1]);
+  $('#sparkwidgetmodal').modal('show');
+  widgetEl = document.getElementById('embedhere');
+  // Init a new widget 
+  ciscospark.widget(widgetEl).spaceWidget(
+      { accessToken: theToken, 
+       toPersonEmail: arguments[0],
+       initialActivity: arguments[1],
+       startCall: true,
+       onEvent: sparkevents
+      }
+  );
+};
+
 
 function spaceIDwidget(){
-  //removeWidget();
   console.log("creating widget with Space ID - " + arguments[0] + " for acitivity " + arguments[1]);
   $('#sparkwidgetmodal').modal('show');
   widgetEl = document.getElementById('embedhere');
@@ -246,11 +274,25 @@ function spaceIDwidget(){
   // var spid = arguments[0];
   ciscospark.widget(widgetEl).spaceWidget(
       { accessToken: theToken, 
-       spaceId: arguments[0],
-       initialActivity: arguments[1],
-       startCall: false,
-       onEvent: sparkevents,
-       logLevel: 'debug'
+        spaceId: arguments[0],
+        initialActivity: arguments[1],
+        startCall: false,
+        onEvent: sparkevents
+      }
+  );
+};
+
+function spaceEMailwidget(){
+  console.log("creating widget with Email - " + arguments[0] + " for acitivity " + arguments[1]);
+  $('#sparkwidgetmodal').modal('show');
+  widgetEl = document.getElementById('embedhere');
+  //console.log(JSON.stringify(document.querySelectorAll('.ciscospark-title-bar-wrapper')));
+  ciscospark.widget(widgetEl).spaceWidget(
+      { accessToken: theToken, 
+        toPersonEmail: arguments[0],
+        initialActivity: arguments[1],
+        startCall: false,
+        onEvent: botevents
       }
   );
 };
@@ -326,7 +368,7 @@ function getCookie(cname) {
   return "";
 }
 
-/*
+
 function checkCookie() {
   var user = getCookie("username");
   if (user != "") {
@@ -338,4 +380,3 @@ function checkCookie() {
       }
   }
 }
-*/

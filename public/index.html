@@ -270,10 +270,10 @@ var tokenmodaloptions = {
 var theToken, theURI;
 var widgetEl;
 var widgetObject;
-var residentchatid;
+var residentchatroomid;
 var SparkBOTEmail = "ERScheduler@sparkbot.io";
 var SparkGroupID = "7487563745ewrwrwr3r24r2387r827hxyr872ff";
-var meet1on1URI = "hachawla@ucdemolab.com";
+var meet1on1URI = "roomkit@sparkdemos.com";
 //var message1on1Email = "";
 
 $( "#SparkGroupMeet" ).on( "click", function(event){
@@ -285,52 +285,47 @@ $( "#SparkGroupMeet" ).on( "click", function(event){
 
 $( "#SparkBOTMessage" ).on( "click", function(event){
   //console.log(event);
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-  messageSparkBOT();
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkVideoCall" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-  meet1on1();
-    //  $( "#dialog" ).dialog( "open" );
-    });
-
-$( "#SparkMessage" ).on( "click", function(event){
   //var cell_value = $(event.target).text();
   //showPopup(cell_value);
-  if(residentchatid == null){
-    createnewspace();
-    //spaceIDwidget(residentchatid, "message");
-  } else {
-    spaceIDwidget(residentchatid, "message");
-  };
+  //messageSparkBOT();
     //  $( "#dialog" ).dialog( "open" );
+    spaceEMailwidget(SparkBOTEmail, "message");
+});
+
+$( "#SparkVideoCall" ).on( "click", function(){
+    createURIwidget(meet1on1URI, "meet");
+});
+
+$( "#SparkMessage" ).on( "click", function(){
+  if(residentchatroomid == null){
+    spark.rooms.create({title: 'Web-Session-' + Date.now()})
+    .then(function(room){
+      residentchatroomid = room.id;
+      console.log("I created room id - " + residentchatroomid);
+    })
+    .then(function(){
+      //Add a member into this new space
+      console.log("Lets add a member sometime");
+    })
+    .then(function(){
+      console.log("function was a success lets dial in");
+      spaceIDwidget(residentchatroomid, "message");
+      return 'success';
     });
+  } else {
+    spaceIDwidget(residentchatroomid, "message");
+  };
+});
 
 $( "#SparkURIDial" ).on( "click", function(){
-  //var cell_value = $(event.target).text();
-  //showPopup(cell_value);
-    //  $( "#dialog" ).dialog( "open" );
      $('#URIModal').modal("toggle");
-    });
+});
     
 $( "#add-token" ).on( "click", function(event) {
-    //getToken($(event.target));
-    //var submitted_value =  
-    //askforToken();
     $('#tokenModal').modal(tokenmodaloptions);
 });
 
 $( "#end_interaction" ).on( "click", function(event) {
-    //getToken($(event.target));
-    //var submitted_value =  
-    //askforToken();
-    //$('#tokenModal').modal(tokenmodaloptions);
-    //removeWidget();
-    //this.modal("toggle");
     ciscospark.widget(widgetEl).remove(function(removed){
                   if (removed) {
                     console.log('Interaction ended widget removed, hiding modal');

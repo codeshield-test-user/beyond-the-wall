@@ -6,6 +6,10 @@
     overflow: hidden;
 }
 
+.modal-body {
+    padding: 0px 0px;
+}
+
 
 #overlay {
     position: fixed;
@@ -39,7 +43,7 @@
 }
 
 .no-close .ui-dialog-titlebar-close {
-  display: none;
+    
 }
 
 .ciscospark-avatar {
@@ -59,7 +63,7 @@
 }
 
 #widget-events {
-
+    display: flex;
 }
 
 .btn-token {
