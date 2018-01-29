@@ -53,12 +53,11 @@ function dialURI2(){
     createURIwidget(theURI, "meet");
 };
 
-/*
-function dialURI(token, uri){
-    console.log("got token - " + token);
-    console.log("got uri - " + uri);    
+
+function dialURI(uri){
+    createURIwidget(uri, "meet");    
 };
-*/
+
 
 function messageSparkBOT(){
   console.log("got token - " + theToken);
@@ -82,9 +81,6 @@ function createnewspace(){
   console.log("Using SDK to create space");
   spark.rooms.create({title: 'Web-Session-' + Date.now()})
   .then(function(room){
-    console.log(room.id);
-    //return room.id;
-    //setCookie("residentchatid", room.id, 365);
     residentchatroomid = room.id;
   })
   .then(function(){
@@ -93,31 +89,6 @@ function createnewspace(){
   });
 };
 
-//not using 
-/*
-function dialURI(event){
-    console.log("inside getURI function");
-    SparkURI = document.getElementById("sparkURI").value;
-    console.log(SparkURI);
-    
-    $('#sparkwidgetmodal').modal().open;
-    //var widgetEl = document.getElementById('embedSpark');
-      // Init a new widget
-      ciscospark.widget(widgetEl).spaceWidget({
-        accessToken: theToken,
-        toPersonEmail: SparkURI,
-        initialActivity: 'meet',
-        startCall: true
-      });
-    $('#sparkwidgetmodal').on('hidden.bs.modal', function (e) {
-        console.log("going to kill session");
-        //removeWidget('widgetEl');
-        ciscospark.widget(widgetEl).remove();
-        
-    });
-    
-};
-*/
 function askforToken(){
         console.log("Asking for token");
         //console.log(#token);
@@ -190,9 +161,11 @@ function showPopup(your_variable){
 }
 */
 
-function sparkevents(name, data){
+async function sparkevents(name, data){
     //remove title bar to hide avatar and URI display on connect
     document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
+    
+    
     if (name === 'calls:connected'){
         var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
         //console.log(JSON.parse(elements));
@@ -207,7 +180,25 @@ function sparkevents(name, data){
                     $('#sparkwidgetmodal').modal('hide');
                   }
                 });
-    };     
+    };
+    await console.log ("recieved spark event: " + name);
+    (ampeventObj).trigger("loaded", {some: 'object'});
+};
+
+function getMethods(obj)
+{
+    var res = [];
+    for(var m in obj) {
+        if(typeof obj[m] == "function") {
+            res.push(m)
+        }
+    }
+    return res;
+}
+
+function isWidgetLoaded(){
+  console.log ("maybe its loaded");
+  //return (ciscospark.widget(widgetEl));
 };
 
 function botevents(name, data){
@@ -253,7 +244,7 @@ function createURIwidget(theURI){
 function createURIwidget(){
   console.log("creating URI widget with - "+ arguments[0] + " for acitivity " + arguments[1]);
   $('#sparkwidgetmodal').modal('show');
-  widgetEl = document.getElementById('embedhere');
+  //widgetEl = document.getElementById('embedhere');
   // Init a new widget 
   ciscospark.widget(widgetEl).spaceWidget(
       { accessToken: theToken, 
@@ -265,14 +256,15 @@ function createURIwidget(){
   );
 };
 
+ampevents.createEmitter(ampeventObj);
 
-function spaceIDwidget(){
+
+
+async function spaceIDwidget(){
   console.log("creating widget with Space ID - " + arguments[0] + " for acitivity " + arguments[1]);
-  $('#sparkwidgetmodal').modal('show');
-  widgetEl = document.getElementById('embedhere');
-  // Init a new widget 
-  // var spid = arguments[0];
-  ciscospark.widget(widgetEl).spaceWidget(
+  await $('#sparkwidgetmodal').modal('show');
+  //widgetEl = await document.getElementById('embedhere');
+  await ciscospark.widget(widgetEl).spaceWidget(
       { accessToken: theToken, 
         spaceId: arguments[0],
         initialActivity: arguments[1],
@@ -280,12 +272,13 @@ function spaceIDwidget(){
         onEvent: sparkevents
       }
   );
+  return ('spaceIDwidget function completed');
 };
 
 function spaceEMailwidget(){
   console.log("creating widget with Email - " + arguments[0] + " for acitivity " + arguments[1]);
   $('#sparkwidgetmodal').modal('show');
-  widgetEl = document.getElementById('embedhere');
+  //widgetEl = document.getElementById('embedhere');
   //console.log(JSON.stringify(document.querySelectorAll('.ciscospark-title-bar-wrapper')));
   ciscospark.widget(widgetEl).spaceWidget(
       { accessToken: theToken, 

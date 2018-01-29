@@ -9,6 +9,8 @@
     <title>Cisco Spark-SDK Healthcare Demo</title>
     <!-- Spark JS SDK -->
     <script src="assets/js/bundle.js"></script>
+    <!-- Ampersand Events -->
+    <script src="assets/js/ampevents.js"></script>
 
     <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">
     <!-- jQuery & jqueryui core -->
@@ -243,9 +245,12 @@
                 <form id="enter_uri_form">
                     <p>Who would you like to call?</p>
                     <p><input type="text" name="sparkURI" id="sparkURI">
-                    <br>
-                    <br>
                     <button type="button" class="btn btn-success" data-dismiss="modal" onclick="dialURI2()">Call Now</button>
+                    </p>
+                    <p>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dialURI(demoEP1uri)">Demo Unit 1</button>
+                    <t></t>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dialURI(demoEP2uri)">Demo Unit 2</button>
                     </p>
                 </form>
             </div>
@@ -265,35 +270,42 @@ var tokenmodaloptions = {
     "show" : false
 };
 
+var ampeventObj = {};
 //Declare Global Variables
 //var mycookie = document.cookie;
 var theToken, theURI;
-var widgetEl;
-var widgetObject;
+//var isWidgetLoaded = false;
+var widgetEl = document.getElementById('embedhere');
+//var widgetObject;
 var residentchatroomid;
 var SparkBOTEmail = "ERScheduler@sparkbot.io";
-var SparkGroupID = "7487563745ewrwrwr3r24r2387r827hxyr872ff";
-var meet1on1URI = "roomkit@sparkdemos.com";
+var SparkGroupID = "Y2lzY29zcGFyazovL3VzL1JPT00vODg1Y2JiNDAtMDM5MS0xMWU4LWFjZDMtNTc3Nzk5NTFhZjM0";
+var KwikRxURI = "roomkit@sparkdemos.com";
+var residentEmail = "hachawla@eecse.com";
+var demoEP1uri = "mtribble@colbsys.com";
+var demoEP2uri = "hachawla@ucdemolab.com";
 //var message1on1Email = "";
 
-$( "#SparkGroupMeet" ).on( "click", function(event){
-  var cell_value = $(event.target).text();
-  showPopup(cell_value);
-  pingSparkGroup();
-    //  $( "#dialog" ).dialog( "open" );
+$("#SparkGroupMeet").on( "click", async function(){
+    await spaceIDwidget(SparkGroupID, "message");
+    //await console.log("heres the response: " + response);
+    //console.log(getMethods(spaceIDwidget));
+    //console.log (isWidgetLoaded());
+    (ampeventObj).on("all", function(payload){
+      console.log("gettign details for - " + payload);
+      if (payload == 'loaded'){
+        console.log("try DOM query now");
+        document.querySelectorAll('.ciscospark-activity-menu-button')[0].style.display = "initial";
+      }
     });
+  });
 
 $( "#SparkBOTMessage" ).on( "click", function(event){
-  //console.log(event);
-  //var cell_value = $(event.target).text();
-  //showPopup(cell_value);
-  //messageSparkBOT();
-    //  $( "#dialog" ).dialog( "open" );
     spaceEMailwidget(SparkBOTEmail, "message");
 });
 
 $( "#SparkVideoCall" ).on( "click", function(){
-    createURIwidget(meet1on1URI, "meet");
+    createURIwidget(KwikRxURI, "meet");
 });
 
 $( "#SparkMessage" ).on( "click", function(){
@@ -305,10 +317,14 @@ $( "#SparkMessage" ).on( "click", function(){
     })
     .then(function(){
       //Add a member into this new space
-      console.log("Lets add a member sometime");
+      spark.memberships.create({
+        roomId: residentchatroomid,
+        personEmail: residentEmail
+      });
+      //console.log("Lets auto add a member in the next release");
     })
     .then(function(){
-      console.log("function was a success lets dial in");
+      console.log("Function was a success, start messaging widget");
       spaceIDwidget(residentchatroomid, "message");
       return 'success';
     });

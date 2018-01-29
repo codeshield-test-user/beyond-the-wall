@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "ampersand-events": "^2.0.2",
     "ciscospark": "^1.25.1"
   },
   "devDependencies": {
