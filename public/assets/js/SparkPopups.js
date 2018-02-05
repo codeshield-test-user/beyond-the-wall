@@ -23,15 +23,21 @@
 //        height: "200"
 //    });
 // } );
+var ampeventObj = {};
+ampevents.createEmitter(ampeventObj);
+
 function initializeSpark(req){
-  console.log("inside initialize spark function");
-  console.log("got token - " + req);
   spark = ciscospark.init({
     credentials: {
       access_token: req
     }
   });
+  spark.once ('ready', () => {
+    console.log ("Spark SDK ready");
+  });
 };
+
+
 
 function getToken(event){
     console.log("inside getToken function");
@@ -125,64 +131,34 @@ function askforToken(){
     ]
   });
 }
-/*
-function showPopup(your_variable){
-    //console.log("got token" + process.env.ACCESS_TOKEN);
-    //SparkURI = document.getElementById("sparkURI").value;
-    //console.log("got URI: " + SparkURI);
-    //console.log("got your_variable: " + your_variable);
-    //console.log("got token: " + theToken);
-    $("#popup").dialog({
-        title: your_variable,
-        modal: true,
-        width: "500" ,
-        height: "500",
-        dialogClass: "no-close",
-        open: function(){
-            $(this).find("p").html("Hello " + your_variable);
-            //createWidget();
-        },
-        close: function(){
-          //ciscospark.widget(widgetEl).remove();
-          //removeWidget();
-        },
-        buttons: [
-        {
-          text: "End Interaction",
-          //icon: "fa fa-users",
-          click: function() {
-            $( this ).dialog( "close" );
-          },
-        //Uncommenting the following line would hide the text,resulting in the label being used as a tooltip
-        //showText: true
-        }
-    ]
-  });
-}
-*/
 
-async function sparkevents(name, data){
+
+//async function sparkevents(name, data){
+function sparkevents(name, data){
     //remove title bar to hide avatar and URI display on connect
     document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
     
-    
+    /*
     if (name === 'calls:connected'){
         var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
         //console.log(JSON.parse(elements));
-        elements[0].style.display = "none";
+        elements[0].style.display = "block";
     };
-
+*/
     // kill the widget and modal on call end / decline
     if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
-                ciscospark.widget(widgetEl).remove(function(removed){
+                ciscospark.widget(widgetEl).remove().then(function(removed){
                   if (removed) {
-                    console.log('Call ended widget removed, hiding modal');
-                    $('#sparkwidgetmodal').modal('hide');
+                    console.log('Removed widget');
+                    
                   }
+                }).then(function(){
+                  $('#sparkwidgetmodal').modal('hide');
+                  console.log("Hid modal");
                 });
     };
-    await console.log ("recieved spark event: " + name);
-    (ampeventObj).trigger("loaded", {some: 'object'});
+    //await console.log ("recieved spark event: " + name);
+    //(ampeventObj).trigger("loaded", {some: 'object'});
 };
 
 function getMethods(obj)
@@ -223,30 +199,12 @@ function botevents(name, data){
   };     
 };
 
-
-/*
-function createURIwidget(theURI){
-    console.log("creating URI widget");
-    $('#sparkwidgetmodal').modal('show');
-    widgetEl = document.getElementById('embedhere');
-    // Init a new widget 
-    ciscospark.widget(widgetEl).spaceWidget(
-        { accessToken: theToken, 
-         toPersonEmail: theURI,
-         initialActivity: 'meet',
-         startCall: true,
-         onEvent: sparkevents
-        }
-    );
-};
-*/
-
-function createURIwidget(){
+async function createURIwidget(){
   console.log("creating URI widget with - "+ arguments[0] + " for acitivity " + arguments[1]);
-  $('#sparkwidgetmodal').modal('show');
+  await $('#sparkwidgetmodal').modal('show');
   //widgetEl = document.getElementById('embedhere');
   // Init a new widget 
-  ciscospark.widget(widgetEl).spaceWidget(
+  await ciscospark.widget(widgetEl).spaceWidget(
       { accessToken: theToken, 
        toPersonEmail: arguments[0],
        initialActivity: arguments[1],
@@ -254,11 +212,8 @@ function createURIwidget(){
        onEvent: sparkevents
       }
   );
+  return ('createURIwidget function completed');
 };
-
-ampevents.createEmitter(ampeventObj);
-
-
 
 async function spaceIDwidget(){
   console.log("creating widget with Space ID - " + arguments[0] + " for acitivity " + arguments[1]);
@@ -291,35 +246,6 @@ function spaceEMailwidget(){
 };
 
 /*
-function createWidget() {
-  var widgetEl = ciscospark.widget(widgetEl);
-  widgetObject.spaceWidget({
-    //accessToken: '<%= process.env.ACCESS_TOKEN %>',
-    accessToken: theToken,
-    //spaceId: '<%= process.env.SPACE_ID %>',
-    toPersonEmail: 'roomkit@sparkdemos.com',
-    initialActivity: 'meet',
-    startCall: true,
-    onEvent: function(name, data) {
-      widgetEventsEl.innerText = name+'\n'+ JSON.stringify(data);
-      console.log(data);
-      if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
-        // Perform an action if a new message has been created
-        //console.log("I did get this : " + JSON.stringify(name) + JSON.stringify(detail));
-        //ciscospark.widget(widgetEl).remove();
-        //removeWidget();
-        ciscospark.widget(widgetEl).remove(function(removed) {
-          if (removed) {
-            console.log('widget is removed!');
-          }
-        });  
-        $('#popup').dialog("close");
-
-      };
-    }
-  });
-}
-*/
 
 function removeWidget() {
   //var widget = ciscospark.widget(widgetEl);
@@ -373,3 +299,5 @@ function checkCookie() {
       }
   }
 }
+
+*/

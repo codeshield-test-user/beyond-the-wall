@@ -270,7 +270,7 @@ var tokenmodaloptions = {
     "show" : false
 };
 
-var ampeventObj = {};
+
 //Declare Global Variables
 //var mycookie = document.cookie;
 var theToken, theURI;
@@ -291,21 +291,22 @@ $("#SparkGroupMeet").on( "click", async function(){
     //await console.log("heres the response: " + response);
     //console.log(getMethods(spaceIDwidget));
     //console.log (isWidgetLoaded());
+    /*
     (ampeventObj).on("all", function(payload){
       console.log("gettign details for - " + payload);
       if (payload == 'loaded'){
         console.log("try DOM query now");
         document.querySelectorAll('.ciscospark-activity-menu-button')[0].style.display = "initial";
       }
-    });
+    }); */
   });
 
 $( "#SparkBOTMessage" ).on( "click", function(event){
     spaceEMailwidget(SparkBOTEmail, "message");
 });
 
-$( "#SparkVideoCall" ).on( "click", function(){
-    createURIwidget(KwikRxURI, "meet");
+$( "#SparkVideoCall" ).on( "click", async function(){
+    await createURIwidget(KwikRxURI, "meet");
 });
 
 $( "#SparkMessage" ).on( "click", function(){
@@ -333,12 +334,12 @@ $( "#SparkMessage" ).on( "click", function(){
   };
 });
 
-$( "#SparkURIDial" ).on( "click", function(){
-     $('#URIModal').modal("toggle");
+$( "#SparkURIDial" ).on( "click", async function(){
+     await $('#URIModal').modal("toggle");
 });
     
 $( "#add-token" ).on( "click", function(event) {
-    $('#tokenModal').modal(tokenmodaloptions);
+    $('#tokenModal').modal("toggle");
 });
 
 $( "#end_interaction" ).on( "click", function(event) {
