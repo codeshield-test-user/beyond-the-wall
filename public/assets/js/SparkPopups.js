@@ -66,26 +66,6 @@ function dialURI(uri){
   createURIwidget(uri, "meet");    
 };
 
-/*
-function messageSparkBOT(){
-  console.log("got token - " + theToken);
-  //console.log("got uri - " + uri); 
-  console.log("got BOT email - " + SparkBOTEmail);   
-};
-
-function pingSparkGroup(){
-  console.log("got token - " + theToken);
-  //console.log("got uri - " + uri); 
-  console.log("got Group ID - " + SparkGroupID);   
-};
-
-function meet1on1(){
-  console.log("got token - " + theToken);
-  //console.log("got uri - " + uri); 
-  console.log("got 1:1 URI - " + meet1on1URI);   
-};
-*/
-
 function createnewspace(){  
   console.log("Using SDK to create space");
   spark.rooms.create({title: 'Web-Session-' + Date.now()})
@@ -138,32 +118,27 @@ function askforToken(){
 
 //async function sparkevents(name, data){
 function sparkevents(name, data){
-    //remove title bar to hide avatar and URI display on connect
-    document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
-    
-    /*
+
     if (name === 'calls:connected'){
-        var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
-        //console.log(JSON.parse(elements));
-        elements[0].style.display = "block";
+        //remove title bar to hide avatar and URI display on connect
+        document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
     };
-*/
+
     // kill the widget and modal on call end / decline
     if (name === 'calls:disconnected' || name === 'memberships:declined' || name === 'memberships:disconnected') {
                 ciscospark.widget(widgetEl).remove().then(function(removed){
                   if (removed) {
-                    console.log('Removed widget');
-                    
+                    console.log('Removed widget');                  
                   }
                 }).then(function(){
                   $('#sparkwidgetmodal').modal('hide');
-                  console.log("Hid modal");
+                  console.log("Hiding modal");
                 });
     };
-    //await console.log ("recieved spark event: " + name);
-    //(ampeventObj).trigger("loaded", {some: 'object'});
 };
 
+/*
+//helper function 
 function getMethods(obj)
 {
     var res = [];
@@ -174,17 +149,13 @@ function getMethods(obj)
     }
     return res;
 }
-
-function isWidgetLoaded(){
-  console.log ("maybe its loaded");
-  //return (ciscospark.widget(widgetEl));
-};
+*/
 
 function botevents(name, data){
   //remove title bar to hide avatar and URI display on connect
-  console.log(name + " :: " + JSON.stringify(data));
+  //console.log(name + " :: " + JSON.stringify(data));
   //console.log(document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style);
-  document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
+  //document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
   if (name === 'rooms:read'){
       var elements = document.querySelectorAll('.ciscospark-title-bar-wrapper');
       console.log(JSON.stringify(elements));
@@ -233,6 +204,16 @@ async function spaceIDwidget(){
   return ('spaceIDwidget function completed');
 };
 
+
+//Event Listener   - 
+document.getElementById('embedhere').addEventListener('rooms:read', function(event) {
+  // modify CSS for title bar
+  document.querySelectorAll('.ciscospark-title-bar-wrapper')[0].style.display = "block";
+  console.log(event.detail);
+});
+
+
+
 function spaceEMailwidget(){
   console.log("creating widget with Email - " + arguments[0] + " for acitivity " + arguments[1]);
   $('#sparkwidgetmodal').modal('show');
@@ -248,59 +229,4 @@ function spaceEMailwidget(){
   );
 };
 
-/*
 
-function removeWidget() {
-  //var widget = ciscospark.widget(widgetEl);
-  if (widget.remove) {
-    widget.remove();
-  }
-}
-
-function removeWidget(modalid) {
-    console.log("removing widget named " + modalid);
-  //var widget = ciscospark.widget(modalid);
-  if (widget.remove) {
-    widget.remove();
-  }
-}
-
-//Cookie handling code - 
-function setCookie(cname, cvalue, exdays) {
-  console.log("in setcookie function");
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  console.log("in getcookie function");
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-      }
-  }
-  return "";
-}
-
-
-function checkCookie() {
-  var user = getCookie("username");
-  if (user != "") {
-      alert("Welcome again " + user);
-  } else {
-      user = prompt("Please enter your name:", "");
-      if (user != "" && user != null) {
-          setCookie("username", user, 365);
-      }
-  }
-}
-
-*/

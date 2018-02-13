@@ -274,7 +274,6 @@ var tokenmodaloptions = {
 //Declare Global Variables
 //var mycookie = document.cookie;
 var theToken, theURI;
-//var isWidgetLoaded = false;
 var widgetEl = document.getElementById('embedhere');
 //var widgetObject;
 var residentchatroomid;
@@ -284,32 +283,23 @@ var KwikRxURI = "roomkit@sparkdemos.com";
 var residentEmail = "hachawla@eecse.com";
 var demoEP1uri = "mtribble@colbsys.com";
 var demoEP2uri = "hachawla@ucdemolab.com";
-//var message1on1Email = "";
 
 $("#SparkGroupMeet").on( "click", async function(){
-    await spaceIDwidget(SparkGroupID, "message");
-    //await console.log("heres the response: " + response);
-    //console.log(getMethods(spaceIDwidget));
-    //console.log (isWidgetLoaded());
-    /*
-    (ampeventObj).on("all", function(payload){
-      console.log("gettign details for - " + payload);
-      if (payload == 'loaded'){
-        console.log("try DOM query now");
-        document.querySelectorAll('.ciscospark-activity-menu-button')[0].style.display = "initial";
-      }
-    }); */
+    let grpwgtloaded = await spaceIDwidget(SparkGroupID, "message");
+    console.log ("here's grpwgtloaded " + grpwgtloaded);
+    if (grpwgtloaded){
+      //modify CSS 
+      ciscospark.widget(widgetEl).on('rooms:read', function(event) {
+        // Handle the event here
+        document.querySelectorAll('.ciscospark-activity-menu-button')[0].style.display = "block";
+        console.log("Added the Activity button");
+      });
+    };
   });
 
 $( "#SparkBOTMessage" ).on( "click", function(event){
     spaceEMailwidget(SparkBOTEmail, "message");
 });
-
-/*
-$( "#SparkVideoCall" ).on( "click", async function(){
-    await createURIwidget(KwikRxURI, "meet");
-});
-*/
 
 $( "#SparkMessage" ).on( "click", function(){
   if(residentchatroomid == null){
