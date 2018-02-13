@@ -40,31 +40,33 @@ function initializeSpark(req){
 
 
 function getToken(event){
-    console.log("inside getToken function");
+    //console.log("inside getToken function");
     theToken = document.getElementById("tokenID2").value;
-    console.log(theToken);
+    //console.log(theToken);
     initializeSpark(theToken);
 };
 
+/*
 function getURI(event){
     console.log("inside getURI function");
     theURI = document.getElementById("sparkURI").value;
     console.log(theURI);
 };
+*/
 
 function dialURI2(){
-    theURI = document.getElementById("sparkURI").value;
+//    theURI = document.getElementById("sparkURI").value;
 //    console.log("got token - " + theToken);
-//    console.log("got uri - " + theURI);
-    createURIwidget(theURI, "meet");
+   console.log("got uri - " + document.getElementById("sparkURI").value);
+   createURIwidget(document.getElementById("sparkURI").value, "meet");
 };
 
 
 function dialURI(uri){
-    createURIwidget(uri, "meet");    
+  createURIwidget(uri, "meet");    
 };
 
-
+/*
 function messageSparkBOT(){
   console.log("got token - " + theToken);
   //console.log("got uri - " + uri); 
@@ -82,6 +84,7 @@ function meet1on1(){
   //console.log("got uri - " + uri); 
   console.log("got 1:1 URI - " + meet1on1URI);   
 };
+*/
 
 function createnewspace(){  
   console.log("Using SDK to create space");

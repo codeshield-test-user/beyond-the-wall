@@ -118,7 +118,7 @@
               <!-- a class="btn btn-success" href="#"><i class="fa fa-phone-square"></i> Call</a-->
             </div>
             <div class="card-footer">
-              <button id="SparkVideoCall" class="btn btn-primary">
+              <button id="SparkVideoCall" class="btn btn-primary" onclick="dialURI(KwikRxURI)">
                 <i class="fa fa-phone-square"></i> Call Now
               </button>
             </div>
@@ -305,9 +305,11 @@ $( "#SparkBOTMessage" ).on( "click", function(event){
     spaceEMailwidget(SparkBOTEmail, "message");
 });
 
+/*
 $( "#SparkVideoCall" ).on( "click", async function(){
     await createURIwidget(KwikRxURI, "meet");
 });
+*/
 
 $( "#SparkMessage" ).on( "click", function(){
   if(residentchatroomid == null){
